@@ -1,23 +1,56 @@
 {
   "name": "btpydev",
-  "displayName": "chatquipetelefeu",
-  "description": "Chatquipetelefeu est une extension VS Code innovante qui intègre ChatGPT-03mini High pour générer et appliquer automatiquement des modifications audacieuses à votre code. Elle inclut également un système de sauvegarde manuel (Save Me), un historique des échanges et des logs pour un suivi optimal de vos actions.",
-  "version": "0.0.1",
+  "displayName": "Mistral Assistant",
+  "description": "Mistral Assistant est une extension VS Code innovante qui intègre Mistral pour générer et appliquer automatiquement des modifications de code. Elle inclut également un système de sauvegarde manuel (Save Me), un historique des échanges et des logs pour un suivi optimal.",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.97.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:extension.modifierProjetAvecMistral",
+    "onCommand:extension.saveMe",
+    "onCommand:extension.showLog",
+    "onCommand:extension.showBackups",
+    "onCommand:extension.selectBackupFolder"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "btpydev.helloWorld",
-        "title": "Hello World"
+        "command": "extension.modifierProjetAvecMistral",
+        "title": "Modifier le projet avec Mistral"
+      },
+      {
+        "command": "extension.saveMe",
+        "title": "Save Me (Backup manuel)"
+      },
+      {
+        "command": "extension.showLog",
+        "title": "Afficher les logs"
+      },
+      {
+        "command": "extension.showBackups",
+        "title": "Afficher les backups"
+      },
+      {
+        "command": "extension.selectBackupFolder",
+        "title": "Sélectionner le dossier de backup"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Mistral Extension",
+      "properties": {
+        "mistralExtension.backupFolder": {
+          "type": "string",
+          "default": "",
+          "description": "Chemin du dossier de backup. Si vide, le dossier par défaut est ~/.mistral_backup"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -31,17 +64,20 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.97.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/vscode": "^1.97.0",
     "@typescript-eslint/eslint-plugin": "^8.22.0",
     "@typescript-eslint/parser": "^8.22.0",
-    "eslint": "^9.19.0",
-    "typescript": "^5.7.3",
-    "ts-loader": "^9.5.2",
-    "webpack": "^5.97.1",
-    "webpack-cli": "^6.0.1",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.19.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  },
+  "dependencies": {
+    "axios": "^1.7.9"
   }
 }
